@@ -19,4 +19,13 @@ public class StateCensusAnalyserTest {
             Assert.fail();
         }
     }
+    @Test
+    public void givenWrongFile_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadCensusData(WRONG_FILE);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND, e.type);
+        }
+    }
 }
