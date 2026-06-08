@@ -40,4 +40,14 @@ public class StateCensusAnalyserTest {
             throw new RuntimeException(e);
         }
     }
+    @Test
+    public void givenWrongDelimiter_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadCensusData(WRONG_DELIMITER);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.DELIMITER_ISSUE, e.type);
+        }
+    }
+
 }
