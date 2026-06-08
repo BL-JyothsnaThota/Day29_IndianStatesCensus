@@ -49,5 +49,14 @@ public class StateCensusAnalyserTest {
             Assert.assertEquals(CensusException.ExceptionType.DELIMITER_ISSUE, e.type);
         }
     }
+    @Test
+    public void givenWrongHeader_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadCensusData(WRONG_HEADER);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.HEADER_ISSUE, e.type);
+        }
+    }
 
 }
