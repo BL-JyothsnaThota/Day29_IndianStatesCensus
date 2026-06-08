@@ -9,7 +9,7 @@ public class CensusException extends Exception {
         HEADER_ISSUE
     }
 
-    ExceptionType type;
+    public ExceptionType type;
 
     public CensusException(String message, ExceptionType type) {
         super(message);

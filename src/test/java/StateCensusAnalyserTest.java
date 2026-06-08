@@ -1,3 +1,4 @@
+import org.example.CensusException;
 import org.example.StateCensusAnalyser;
 
 public class StateCensusAnalyserTest {
@@ -26,6 +27,17 @@ public class StateCensusAnalyserTest {
             analyser.loadCensusData(WRONG_FILE);
         } catch (CensusException e) {
             Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND, e.type);
+        }
+    }
+    @Test
+    public void givenWrongType_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadCensusData(WRONG_TYPE);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.INCORRECT_FILE_TYPE, e.type);
+        } catch (CensusException e) {
+            throw new RuntimeException(e);
         }
     }
 }
