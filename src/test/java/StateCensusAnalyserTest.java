@@ -1,5 +1,6 @@
 import org.example.CensusException;
 import org.example.StateCensusAnalyser;
+import org.testng.Assert;
 
 public class StateCensusAnalyserTest {
 
@@ -54,6 +55,54 @@ public class StateCensusAnalyserTest {
         try {
             StateCensusAnalyser analyser = new StateCensusAnalyser();
             analyser.loadCensusData(WRONG_HEADER);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.HEADER_ISSUE, e.type);
+        }
+    }
+    @Test
+    public void givenCensusCSV_WhenCorrect_ShouldReturnCount() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            int count = analyser.loadStateCodeData(filePath);
+            Assert.assertEquals(29, count);
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+    @Test
+    public void givenWrongFile_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadStateCodeData(filePath);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND, e.type);
+        }
+    }
+    @Test
+    public void givenWrongType_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadStateCodeData(filePath);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.INCORRECT_FILE_TYPE, e.type);
+        } catch (CensusException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void givenWrongDelimiter_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadStateCodeData(filePath);
+        } catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionType.DELIMITER_ISSUE, e.type);
+        }
+    }
+    @Test
+    public void givenWrongHeader_ShouldThrowException() {
+        try {
+            StateCensusAnalyser analyser = new StateCensusAnalyser();
+            analyser.loadStateCodeData(filePath);
         } catch (CensusException e) {
             Assert.assertEquals(CensusException.ExceptionType.HEADER_ISSUE, e.type);
         }
